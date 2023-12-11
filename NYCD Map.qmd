@@ -35,7 +35,7 @@ ny_voters <- get_acs(
     median_age = 'B01002A_001'
   ),
   state = 'NY',
-  county = '059',
+  CD = '03',
   output = "wide",
   geometry = TRUE
 )
