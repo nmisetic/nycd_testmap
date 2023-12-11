@@ -1,0 +1,55 @@
+---
+title: "NYCD Map"
+author: "Nikola Misetic"
+format: html
+editor: visual
+---
+
+## Packages
+
+```{r}
+library(tidyverse)
+library(tigris)
+library(sf)
+library(tidycensus)
+library(htmltools)
+library(janitor)
+library(here)
+library(mapview)
+library(leafsync)
+library(leaflet.extras2)
+options(tigris_class = "sf")
+```
+
+## Collecting the Data
+
+```{r}
+myapikey <- "7ec164ce2e6d7eff05a3da72fa85dec41773e398"
+census_api_key(myapikey, overwrite = TRUE)
+```
+
+```{r}
+ny_voters <- get_acs(
+  geography = 'tract',
+  variables = c( 
+    median_age = 'B01002A_001'
+  ),
+  state = 'NY',
+  county = '059',
+  output = "wide",
+  geometry = TRUE
+)
+```
+
+```{r}
+ny_voters <- ny_voters %>%
+  select(-ends_with("M"))
+
+colnames(ny_voters) <- sub("E$", "", colnames(ny_voters))
+```
+
+## Making the Map
+
+```{r}
+mapview(ny_voters, zcol = "median_age")
+```
