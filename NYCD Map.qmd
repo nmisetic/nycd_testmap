@@ -23,15 +23,15 @@ library(leaflet.extras2)
 options(tigris_class = "sf")
 ```
 
-## Collecting the Data
-
 ```{r}
 myapikey <- "7ec164ce2e6d7eff05a3da72fa85dec41773e398"
 census_api_key(myapikey, overwrite = TRUE)
 ```
 
+## Nassau Map
+
 ```{r}
-ny_voters <- get_acs(
+nassau_voters <- get_acs(
   geography = 'tract',
   variables = c( 
     median_age = 'B01002A_001'
@@ -44,14 +44,38 @@ ny_voters <- get_acs(
 ```
 
 ```{r}
-ny_voters <- ny_voters %>%
+nassau_voters <- nassau_voters %>%
   select(-ends_with("M"))
 
-colnames(ny_voters) <- sub("E$", "", colnames(ny_voters))
+colnames(nassau_voters) <- sub("E$", "", colnames(nassau_voters))
 ```
 
-## Making the Map
+```{r}
+mapview(nassau_voters, zcol = "median_age")
+```
+
+## Queens Map
 
 ```{r}
-mapview(ny_voters, zcol = "median_age")
+queens_voters <- get_acs(
+  geography = 'tract',
+  variables = c( 
+    median_age = 'B01002A_001'
+  ),
+  state = 'NY',
+  county = '081',
+  output = "wide",
+  geometry = TRUE
+)
+```
+
+```{r}
+queens_voters <- queens_voters %>%
+  select(-ends_with("M"))
+
+colnames(queens_voters) <- sub("E$", "", colnames(queens_voters))
+```
+
+```{r}
+mapview(queens_voters, zcol = "median_age")
 ```
