@@ -80,28 +80,28 @@ colnames(queens_voters) <- sub("E$", "", colnames(queens_voters))
 mapview(queens_voters, zcol = "median_age")
 ```
 
-## District Map
+## Suffolk Map
 
 ```{r}
-cd_voters <- get_acs(
+suffolk_voters <- get_acs(
   geography = 'tract',
   variables = c( 
     median_age = 'B01002A_001'
   ),
   state = 'NY',
-  CD = '03',
+  county = '103',
   output = "wide",
   geometry = TRUE
 )
 ```
 
 ```{r}
-cd_voters <- cd_voters %>%
+suffolk_voters <- suffolk_voters %>%
   select(-ends_with("M"))
 
-colnames(cd_voters) <- sub("E$", "", colnames(cd_voters))
+colnames(suffolk_voters) <- sub("E$", "", colnames(suffolk_voters))
 ```
 
 ```{r}
-mapview(cd_voters, zcol = "median_age")
+mapview(suffolk_voters, zcol = "median_age")
 ```
