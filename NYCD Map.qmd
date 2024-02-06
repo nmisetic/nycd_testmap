@@ -105,3 +105,9 @@ colnames(suffolk_voters) <- sub("E$", "", colnames(suffolk_voters))
 ```{r}
 mapview(suffolk_voters, zcol = "median_age")
 ```
+
+```{r}
+district <- rbind(nassau_voters,queens_voters,suffolk_voters)
+
+mapview(district, zcol = "median_age")
+```
