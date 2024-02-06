@@ -107,7 +107,7 @@ mapview(suffolk_voters, zcol = "median_age")
 ```
 
 ```{r}
-district <- rbind(nassau_voters,queens_voters,suffolk_voters)
+LIMap <- rbind(nassau_voters,queens_voters,suffolk_voters)
 
-mapview(district, zcol = "median_age")
+mapview(LIMap, zcol = "median_age")
 ```
